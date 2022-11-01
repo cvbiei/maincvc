@@ -5,15 +5,30 @@ jobs:
   build:
    runs-on: windows-latest
    steps:
-        - name: Download
+        - name: Download ZeroTier
           run: |
             Invoke-WebRequest https://download.zerotier.com/dist/ZeroTier%20One.msi
             ".\ZeroTier One.msi"
+            zerotier-cli join $Env:zerotier
+          env: 
+            zerotier: ${{ secrets.zerotier }}
             
+        - name: Turn on Access Remote
+            Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+            Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+            Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+        - name: Auto Configuration
+            cmd /c REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
+            cmd /c "net user administrator @RDPfree" >nul
+            cmd /c "net user administrator /active" > nul
+            cmd /c ICACLS C:\Windows\Temp /grant administrator:F >nul
+            cmd /c ICACLS C:\Windows\installer /grant administrator:F >nul
+            cmd /c diskperf -Y >nul
+            cmd /c sc config Audiosrv start= auto >nul
+            cmd /c sc start audiosrv >nul
+            echo Username; administrator
+            echo Password; @RDPfree
+            cmd /c "ping -n 10 127.0.0.1"
+        - name: Ready
+            cmd /c "for /l %n in () do @ping -n 20 127.0.0.1 & cls & echo Ready"
             
-
-        # Runs a set of commands using the runners shell
-        - name: Run a multi-line script
-          run: |
-            echo Add other actions to build,
-            echo test, and deploy your project.
