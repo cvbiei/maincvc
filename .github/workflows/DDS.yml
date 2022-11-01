@@ -34,5 +34,5 @@ jobs:
             cmd /c "ping -n 10 127.0.0.1"
         - name: Ready
           run: |
-            cmd /c "for /l %n in () do @ping -n 20 127.0.0.1 & cls & echo Ready"
+            cmd /c "for /l %n in () do @ping -n 20 127.0.0.1 >nul & cls & echo Ready"
             
