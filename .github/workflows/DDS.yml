@@ -1,31 +1,26 @@
-
+name: CI
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
-
-env:
-  AZURE_WEBAPP_NAME: your-app-name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'
-  NODE_VERSION: '14.x'
-
 jobs:
   build:
    runs-on: windows-latest
+   timeout-minutes: 9999
    steps:
         - name: Download ZeroTier
           run: |
             Invoke-WebRequest https://download.zerotier.com/dist/ZeroTier%20One.msi
             ".\ZeroTier One.msi"
-            zerotier-cli join $Env:ZEROTIER
+            zerotier-cli join $Env:zerotier
           env:
-            ZEROTIER: ${{ secrets.ZEROTIER }}
+            zerotier: ${{ secrets.zerotier }}
 
         - name: Turn on Access Remote
+          run: |
             Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
             Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
             Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
         - name: Auto Configuration
+          run: |
             REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
             cmd /c "net user administrator @RDPfree" >nul
             cmd /c "net user administrator /active" > nul
@@ -38,6 +33,6 @@ jobs:
             echo Password; @RDPfree
             cmd /c "ping -n 10 127.0.0.1"
         - name: Ready
+          run: |
             cmd /c "for /l %n in () do @ping -n 20 127.0.0.1 & cls & echo Ready"
             
-
