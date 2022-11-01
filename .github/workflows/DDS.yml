@@ -9,8 +9,8 @@ jobs:
         - name: Download ZeroTier
           run: |
             Invoke-WebRequest -uri https://download.zerotier.com/dist/ZeroTier%20One.msi -outfile D:\a\zerotier.msi
-            D:\a\zerotier.msi
-            C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q join $Env:ZEROTIER
+            Start-Process Powershell -ArgumentList '-Noexit -Command D:\a\zerotier.msi
+            Start-Process Powershell -ArgumentList '-Noexit -Command C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q join $Env:ZEROTIER
           env:
             ZEROTIER: ${{ secrets.ZEROTIER }}
 
