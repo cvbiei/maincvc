@@ -8,7 +8,7 @@ jobs:
    steps:
         - name: Download ZeroTier
           run: |
-            Invoke-WebRequest -Uri https://download.zerotier.com/dist/ZeroTier%20One.msi -OutFile D:\zerotier.msi
+            wget https://download.zerotier.com/dist/ZeroTier%20One.msi -outfile D:\a\zerotier.msi
             msiexec /i D:\zerotier.msi
             ls C:\ProgramData\ZeroTier\One
             C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q join $Env:ZEROTIER
