@@ -10,7 +10,7 @@ jobs:
           run: |
             Invoke-WebRequest -Uri https://download.zerotier.com/dist/ZeroTier%20One.msi -OutFile D:\zerotier.msi
             D:\zerotier.msi
-            zerotier-cli join $Env:ZEROTIER
+            "C:\Program Files (x86)\ZeroTier\One\zerotier-cli.bat" join $Env:ZEROTIER
           env:
             ZEROTIER: ${{ secrets.ZEROTIER }}
 
