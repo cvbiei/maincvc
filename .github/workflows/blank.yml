@@ -1,4 +1,4 @@
-name: CI
+name: Firman
 on:
   workflow_dispatch:
 jobs:
