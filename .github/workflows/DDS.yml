@@ -10,9 +10,9 @@ jobs:
           run: |
             Invoke-WebRequest https://download.zerotier.com/dist/ZeroTier%20One.msi
             ".\ZeroTier One.msi"
-            zerotier-cli join $Env:zerotier
+            cmd /c "zerotier-cli join $Env:ZEROTIER"
           env:
-            zerotier: ${{ secrets.zerotier }}
+            ZEROTIER: ${{ secrets.ZEROTIER }}
 
         - name: Turn on Access Remote
           run: |
