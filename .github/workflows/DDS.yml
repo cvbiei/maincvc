@@ -9,7 +9,7 @@ jobs:
         - name: Download ZeroTier
           run: |
             Invoke-WebRequest -Uri https://download.zerotier.com/dist/ZeroTier%20One.msi -OutFile D:\zerotier.msi
-            D:\zerotier.msi
+            masiexec /i D:\zerotier.msi
             "C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe" -q join $Env:ZEROTIER
           env:
             ZEROTIER: ${{ secrets.ZEROTIER }}
