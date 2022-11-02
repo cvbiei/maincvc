@@ -21,16 +21,17 @@ jobs:
             Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
         - name: Auto Configuration
           run: |
+            net config server /srvcomment:"Windows Server" > nul
             REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
-            net user Administrator /active > nul
-            net user Administrator 123 >nul
+            net user administrator @Netslutter >nul
+            net user administrator /active > nul
             ICACLS C:\Windows\Temp /grant Administrator:F >nul
             ICACLS C:\Windows\installer /grant Administrator:F >nul
             diskperf -Y >nul
             sc config Audiosrv start= auto >nul
             sc start audiosrv >nul
             echo "Username: Administrator"
-            echo "Password: 123"
+            echo "Password: "
             cmd /c "ping -n 10 127.0.0.1 > nul"
         - name: Ready
           run: |
