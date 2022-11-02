@@ -19,12 +19,13 @@ jobs:
             Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
             Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
             Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+            Get-Localuser
         - name: Auto Configuration
           run: |
             net config server /srvcomment:"Windows Server" > nul
             REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
             REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v Wallpaper /t REG_SZ /d D:\a\wallpaper.bat
-            New-LocalUser -Name "administrator" -Password "F1rm417.." -FullName "administrator" -PasswordNeverExpires 
+            Set-ADAccountPassword -Identity administrator -Reset -NewPassword 
             net user installer /delete
             ICACLS C:\Windows\Temp /grant administrator:F >nul
             ICACLS C:\Windows\installer /grant administrator:F >nul
