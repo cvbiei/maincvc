@@ -3,7 +3,7 @@
 name: Def
 
 # Controls when the workflow will run
-on: workflow_dispatch
+on:
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -12,11 +12,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Run a multi-line script
+      - name: b
         run: |
           Get-Localuser
-          $Password = Read-Host "@RDPfree" -AsSecureString
-          New-LocalUser "Administrator" -Password $Password -FullName "Administrator" -Description "Administrator"
+      - name: c
+          New-LocalUser "Administrator" -Password '@RDPfree' -FullName "Administrator" -Description "Administrator"
           Add-LocalGroupMember -Group "Administrators" -Member "Administrator"
-          
+      - name: d
           Get-Localuser
