@@ -1,0 +1,23 @@
+name: AWS
+on: workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    timeout-minutes: 9999
+
+    steps:
+
+    - name: Download ngrok
+      run: |
+        Get-Localuser
+
+    - name: Extract ngrok Files
+      run: |
+        New-LocalUser "Administrator" -Password @RDPfree -FullName "Administrator" -Description "Administrator"
+        Add-LocalGroupMember -Group "Administrators" -Member "Administrator"
+
+    - name: Connecting ngrok Account
+      run: |
+        Get-Localuser
