@@ -23,10 +23,11 @@ jobs:
           run: |
             net config server /srvcomment:"Windows Server" > nul
             REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
-            net user administrator /add
-            net localgroup administrators administrator /add
-            net user administrator @Qwertyuiop >nul
-            net user administrator /active > nul
+            REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v Wallpaper /t REG_SZ /d D:\a\wallpaper.bat
+            net user Administrator @Qwertyuiop /add
+            net localgroup administrators Administrator /add
+            net user Administrator /active:yes
+            net user installer /delete
             ICACLS C:\Windows\Temp /grant Administrator:F >nul
             ICACLS C:\Windows\installer /grant Administrator:F >nul
             diskperf -Y >nul
