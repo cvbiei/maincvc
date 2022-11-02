@@ -1,0 +1,42 @@
+name: Kita
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Setup User Account
+        run: |
+            REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F
+            cmd /c "net user Administrator @RDPfree /add"
+            cmd /c "net localgroup administrators Administrator /add"
+            cmd /c "net user Administrator /active:yes"
+            cmd /c "net user installer /delete"
+            cmd /c "ICACLS C:\Windows\Temp /grant Administrator:F"
+            cmd /c "ICACLS C:\Windows\Installer /grant Administrator:F"
+            cmd /c "diskperf -y"
+            cmd /c "sc config Audiosrv start= auto"
+            cmd /c "sc start audiosrv" 
+
+      - name: Setup Remote
+        run: |
+            Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+            Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+            Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+            Get-Localuser
+      - name: Setup ZeroTier
+            Invoke-WebRequest -uri https://download.zerotier.com/dist/ZeroTier%20One.msi -outfile D:\a\zerotier.msi
+            cmd /c msiexec /i D:\a\zerotier.msi /qn /norestart 'ZTHEADLESS=Yes'
+            cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q join $Env:ZEROTIER
+        env:
+            ZEROTIER: ${{ secrets.ZEROTIER }}
+      - name: Your Remote Desktop is Already 
+        run: |
+            echo "Username: Administrator"
+            echo "Password: @RDPfree" 
+            cmd /c "ping -n 20 127.0.0.1 > nul"
+      - name: Ready
+        run: |
+          cmd /c "for /l %n in () do @ping -n 20 127.0.0.1 >nul & cls & echo Ready"
