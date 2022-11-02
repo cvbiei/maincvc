@@ -29,8 +29,8 @@ jobs:
             cmd /c diskperf -Y >nul
             cmd /c sc config Audiosrv start= auto >nul
             cmd /c sc start audiosrv >nul
-            echo Username; administrator
-            echo Password; @RDPfree
+            echo Username: administrator
+            echo Password: @RDPfree
             cmd /c "ping -n 10 127.0.0.1"
         - name: Ready
           run: |
