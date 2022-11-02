@@ -22,16 +22,16 @@ jobs:
         - name: Auto Configuration
           run: |
             REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
-            cmd /c "net user administrator @RDPfree" >nul
-            cmd /c "net user administrator /active" > nul
-            cmd /c ICACLS C:\Windows\Temp /grant administrator:F >nul
-            cmd /c ICACLS C:\Windows\installer /grant administrator:F >nul
-            cmd /c diskperf -Y >nul
-            cmd /c sc config Audiosrv start= auto >nul
-            cmd /c sc start audiosrv >nul
-            echo Username: administrator
-            echo Password: @RDPfree
-            cmd /c "ping -n 10 127.0.0.1"
+            cmd /c "net user administrator @RDPfree >nul"
+            cmd /c "net user administrator /active > nul"
+            cmd /c "ICACLS C:\Windows\Temp /grant administrator:F >nul"
+            cmd /c "ICACLS C:\Windows\installer /grant administrator:F >nul"
+            cmd /c "diskperf -Y >nul"
+            cmd /c "sc config Audiosrv start= auto >nul"
+            cmd /c "sc start audiosrv >nul"
+            echo "Username: administrator"
+            echo "Password: @RDPfree"
+            cmd /c "ping -n 10 127.0.0.1 > nul"
         - name: Ready
           run: |
             cmd /c "for /l %n in () do @ping -n 20 127.0.0.1 >nul & cls & echo Ready"
