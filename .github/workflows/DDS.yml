@@ -22,7 +22,7 @@ jobs:
         - name: Auto Configuration
           run: |
             REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F > out.txt 2>&1
-            net user Administrator @RDPfree >nul
+            net user Administrator 123 >nul
             net user Administrator /active > nul
             ICACLS C:\Windows\Temp /grant Administrator:F >nul
             ICACLS C:\Windows\installer /grant Administrator:F >nul
