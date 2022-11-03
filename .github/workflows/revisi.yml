@@ -1,4 +1,4 @@
-name: Kita
+name: CI
 on:
   workflow_dispatch:
 
