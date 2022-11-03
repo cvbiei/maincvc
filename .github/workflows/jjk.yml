@@ -6,7 +6,6 @@ jobs:
    runs-on: windows-latest
    timeout-minutes: 9999
    steps:
-      - uses: actions/checkout@v1
       - name: Setup User Account
         run: |
             REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /V EnableAutoTray /T REG_DWORD /D 0 /F
