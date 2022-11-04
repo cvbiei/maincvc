@@ -37,7 +37,20 @@ jobs:
         run: |
             echo "Username: Administrator"
             echo "Password: @RDPfree"
-            cmd /c "ping -n 15 127.0.0.1 > nul"
+            start-sleep -Seconds 21300
       - name: Ready
         run: |
-            cmd /c "for /l %n in () do @ping -n 20 127.0.0.1 >nul & cls & echo Ready"
+            echo Ready
+            start-sleep -Seconds 21300
+      - name: Ready
+        run: |
+          echo Ready
+          start-sleep -Seconds 21300
+      - name: Ready
+        run: |
+          echo Ready
+          start-sleep -Seconds 21300
+      - name: Ready
+        run: |
+          echo Ready
+          start-sleep -Seconds 21300
