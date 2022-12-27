@@ -1,4 +1,4 @@
-name: CI
+name: Lele
 on:
   workflow_dispatch:
 jobs:
