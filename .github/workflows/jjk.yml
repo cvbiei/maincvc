@@ -40,8 +40,8 @@ jobs:
             start-sleep -Seconds 5
       - name: Ready
         run: |
-            echo Ready
-            start-sleep -Seconds 21300
+            echo Ready OK
+            Read-Host
       - name: Ready
         run: |
           echo Ready
