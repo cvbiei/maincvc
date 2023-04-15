@@ -41,6 +41,5 @@ jobs:
  
       - name: Ready
         run: |
-          echo Ready
           while($true){start-sleep -Seconds 10}
       
