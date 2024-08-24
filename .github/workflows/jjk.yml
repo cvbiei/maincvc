@@ -29,13 +29,13 @@ jobs:
         run: |
             Invoke-WebRequest -uri https://download.zerotier.com/dist/ZeroTier%20One.msi -outfile D:\a\zerotier.msi
             cmd /c msiexec /i D:\a\zerotier.msi /qn /norestart 'ZTHEADLESS=Yes'
-            cmd /c msiexec zerotier-cli join $Env:ZEROTIER
+            cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q join $Env:ZEROTIER
         env:
             ZEROTIER: ${{ secrets.ZEROTIER }}
             
       - name: Your Remote Desktop is Already Running
         run: |
-            echo "IP      : $(zerotier-cli get $Env:ZEROTIER)" 
+            echo "IP      : $(zerotier-cli get $Env:ZEROTIER ip)" 
             echo "Username: Administrator"
             echo "Password: @RDPfree"
             start-sleep -Seconds 5
