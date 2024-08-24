@@ -39,6 +39,8 @@ jobs:
             echo "Username: Administrator"
             echo "Password: @RDPfree"
             start-sleep -Seconds 5
+        env:
+            ZEROTIER: ${{ secrets.ZEROTIER }}
  
       - name: Ready
         run: |
