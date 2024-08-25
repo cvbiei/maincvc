@@ -33,7 +33,8 @@ jobs:
             echo "Installation Success"
             cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q join $Env:ZEROTIER
             echo "Join network ID success"
-            cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q get $Env:ZEROTIER ip
+            cmd /c $envv = $Env:ZEROTIER
+            cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q get $envv ip
         env:
             ZEROTIER: ${{ secrets.ZEROTIER }}
             
