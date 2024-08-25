@@ -28,17 +28,15 @@ jobs:
       - name: Setup ZeroTier
         run: |
             Invoke-WebRequest -uri https://download.zerotier.com/dist/ZeroTier%20One.msi -outfile D:\a\zerotier.msi
-            echo "Download sukses"
             cmd /c msiexec /i D:\a\zerotier.msi /qn /norestart 'ZTHEADLESS=Yes'
-            echo "Install Sukses"
             cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q join $Env:ZEROTIER
-            echo "Join sukses"
         env:
             ZEROTIER: ${{ secrets.ZEROTIER }}
             
       - name: Your Remote Desktop is Already Running
         run: |
             echo "IP      : "
+            echo $Env:ZEROTIER
             cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q get $Env:ZEROTIER ip
             echo "Username: Administrator"
             echo "Password: @RDPfree"
