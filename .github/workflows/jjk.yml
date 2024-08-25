@@ -35,8 +35,8 @@ jobs:
             
       - name: Your Remote Desktop is Already Running
         run: |
-            $ipp = cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q get $Env:ZEROTIER ip
-            echo "IP      : $ipp"
+            echo "IP      : "
+            cmd /c C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q get $Env:ZEROTIER ip
             echo "Username: Administrator"
             echo "Password: @RDPfree"
             start-sleep -Seconds 5
