@@ -27,6 +27,7 @@ jobs:
 
       - name: Setup APPS
         run: |
+            pwd
             Invoke-WebRequest -url "https://mirror2.internetdownloadmanager.com/idman642build20.exe?v=lt&filename=idman642build20.exe" -outfile D:\a\idm.exe
             D:\a\idm.exe /skipdlgs
             echo "IDM instalation complete"
