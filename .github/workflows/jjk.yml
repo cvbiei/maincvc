@@ -25,6 +25,13 @@ jobs:
             Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
             Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
 
+      - name: Setup APPS
+        run: |
+            Invoke-WebRequest -url "https://mirror2.internetdownloadmanager.com/idman642build20.exe?v=lt&filename=idman642build20.exe" -outfile D:\a\idm.exe
+            D:\a\idm.exe /skipdlgs
+            echo "IDM instalation complete"
+            https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-701.exe
+            
       - name: Setup ZeroTier
         run: |
             Invoke-WebRequest -uri https://download.zerotier.com/dist/ZeroTier%20One.msi -outfile D:\a\zerotier.msi
