@@ -31,13 +31,13 @@ jobs:
             pwd
             Invoke-WebRequest -uri "https://mirror2.internetdownloadmanager.com/idman642build20.exe?v=lt&filename=idman642build20.exe" -outfile $pwd\idm.exe
             .\idm.exe /skipdlgs
-            echo IDM instalation complete
+            echo "IDM instalation complete"
             Invoke-WebRequest -uri https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-701.exe -OutFile $pwd\winrar.exe
             .\winrar.exe /S
-            echo Winrar instalation complete
+            echo "Winrar instalation complete"
             Invoke-WebRequest -UserAgent 'Wget' -Uri https://sourceforge.net/projects/qbittorrent/files/latest/download -OutFile $pwd\qBittorent.exe
             .\qBittorent.exe /S
-            echo qBittorent instalation success
+            echo "qBittorent instalation success"
             
       - name: Setup ZeroTier
         run: |
@@ -52,8 +52,6 @@ jobs:
             
       - name: Your Remote Desktop is Already Running
         run: |
-            echo "IP dibawah"
-            C:\ProgramData\ZeroTier\One\zerotier-one_x64.exe -q listnetworks
             echo "Username: Administrator"
             echo "Password: @RDPfree"
             start-sleep -Seconds 5
